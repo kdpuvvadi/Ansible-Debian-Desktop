@@ -13,3 +13,33 @@
     dest: /usr/local/bin/oh-my-posh
     mode: 0775
   when: posh_present.rc == 1
+
+- name: create config directory
+  file:
+    path: /home/{{ ansible_user }}/.poshthemes
+    state: directory
+    mode: u+rw
+    group: "{{ ansible_user }}"
+    owner: "{{ ansible_user }}"
+
+- name: Copy theme config json
+  copy:
+    src: config/theme.json
+    dest: /home/{{ ansible_user }}/.poshthemes/{{ ansible_user }}.omp.json
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0760'
+
+- name: add posh config to bashrc
+  lineinfile:
+    path: /home/{{ ansible_user }}/.bashrc
+    line: 'eval "$(oh-my-posh --init --shell bash --config ~/.poshthemes/{{ ansible_user }}.omp.json)"'
+    insertafter: EOF
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+
+- name: resource bashrc
+  command: . /home/{{ ansible_user }}/.bashrc
+  failed_when: false
+  changed_when: false
+  check_mode: false
