@@ -33,7 +33,7 @@
 - name: add posh config to bashrc
   lineinfile:
     path: /home/{{ ansible_user }}/.bashrc
-    line: 'eval "$(oh-my-posh --init --shell bash --config ~/.poshthemes/{{ ansible_user }}.omp.json)"'
+    line: "{{ poshconfig }}"
     insertafter: EOF
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
