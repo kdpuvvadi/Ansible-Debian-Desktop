@@ -1,0 +1,21 @@
+---
+
+- name: Check chrome installed or not
+  command: which google-chrome
+  failed_when: false
+  changed_when: false
+  check_mode: false
+  register: chrome_present
+
+- name: Install chrome from debian package
+  apt: 
+    deb: "{{ chrome_url }}"
+  when: chrome_present.rc == 1
+
+- name: apt autoclean
+  apt:
+    autoclean: yes
+
+- name: apt autoremove
+  apt:
+    autoremove: yes

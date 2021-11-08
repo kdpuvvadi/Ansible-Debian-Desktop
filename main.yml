@@ -1,0 +1,23 @@
+---
+- hosts: all
+  become: true
+
+  pre_tasks:
+    - name: vars
+      include_vars: vars.yml
+
+    - name: apt cache update & upgrade
+      apt:
+        update_cache: true
+        cache_valid_time: 3600
+        upgrade: full
+
+  tasks:
+    - name: install packages
+      import_tasks: tasks/chrome.yml
+
+    - name: install Docker
+      import_tasks: tasks/docker.yml
+
+    - name: install vscode
+      import_tasks: tasks/vscode.yml

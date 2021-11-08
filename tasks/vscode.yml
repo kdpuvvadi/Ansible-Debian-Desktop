@@ -1,0 +1,50 @@
+---
+
+- name: install dependencies
+  apt:
+    name:
+      - ca-certificates
+      - apt-transport-https
+      - gconf2
+      - libasound2
+      - libgtk2.0-0
+      - libxss1
+      - libxcb-dri3-0
+      - libdrm2
+      - libgbm1
+      - libxshmfence1
+      - git
+    state: present
+
+- name: check vs code installed or not
+  command: which code
+  failed_when: false
+  changed_when: false
+  check_mode: false
+  register: code_present
+
+- name: install apt key for microsoft mirror
+  apt_key:
+    url: '{{ ms_vscode_mirror }}/keys/microsoft.asc'
+    state: present
+
+- name: Check that vscode repo exists
+  stat:
+    path: /etc/apt/sources.list.d/vscode.list
+  register: stat_code_result
+
+- name: add VS Code repo 
+  apt_repository:
+    repo: 'deb [arch=amd64] {{ ms_vscode_mirror }}/repos/code stable main'
+    filename: vscode
+    state: present
+  when: 
+    - code_present.rc == 1
+    - not stat_code_result.stat.exists
+
+- name: install VS Code
+  apt:
+    name: 
+      - code
+    state: present
+  when: code_present.rc == 1
