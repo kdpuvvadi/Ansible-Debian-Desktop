@@ -21,3 +21,6 @@
 
     - name: install vscode
       import_tasks: tasks/vscode.yml
+
+    - name: install ohmyposh
+      import_tasks: tasks/ohmyposh.yml

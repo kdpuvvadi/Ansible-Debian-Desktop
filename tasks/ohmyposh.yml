@@ -1,0 +1,15 @@
+---
+
+- name: check oh-myposh installed or not
+  command: which oh-my-posh
+  failed_when: false
+  changed_when: false
+  check_mode: false
+  register: posh_present
+
+- name: Download oh-my-posh
+  get_url:
+    url: "{{ oh_my_posh_url }}"
+    dest: /usr/local/bin/oh-my-posh
+    mode: 0775
+  when: posh_present.rc == 1

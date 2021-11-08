@@ -8,14 +8,14 @@
   register: chrome_present
 
 - name: Install chrome from debian package
-  apt: 
+  apt:
     deb: "{{ chrome_url }}"
   when: chrome_present.rc == 1
 
 - name: apt autoclean
   apt:
-    autoclean: yes
+    autoclean: true
 
 - name: apt autoremove
   apt:
-    autoremove: yes
+    autoremove: true

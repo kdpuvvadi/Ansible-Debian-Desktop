@@ -27,24 +27,26 @@
   apt_key:
     url: '{{ ms_vscode_mirror }}/keys/microsoft.asc'
     state: present
+  when: code_present.rc == 1
 
 - name: Check that vscode repo exists
   stat:
     path: /etc/apt/sources.list.d/vscode.list
   register: stat_code_result
+  when: code_present.rc == 1
 
-- name: add VS Code repo 
+- name: add VS Code repo
   apt_repository:
     repo: 'deb [arch=amd64] {{ ms_vscode_mirror }}/repos/code stable main'
     filename: vscode
     state: present
-  when: 
+  when:
     - code_present.rc == 1
     - not stat_code_result.stat.exists
 
 - name: install VS Code
   apt:
-    name: 
+    name:
       - code
     state: present
   when: code_present.rc == 1
