@@ -22,7 +22,7 @@
     group: "{{ ansible_user }}"
     owner: "{{ ansible_user }}"
 
-- name: Download & unzip fonts 
+- name: Download & unzip fonts
   unarchive:
     src: "{{ meslofont_url }}"
     dest: /home/{{ ansible_user }}/.fonts/
