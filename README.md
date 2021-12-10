@@ -3,7 +3,9 @@
 [![lint](https://github.com/kdpuvvadi/ansible-sys-setup/actions/workflows/lint.yml/badge.svg)](https://github.com/kdpuvvadi/ansible-sys-setup/actions/workflows/lint.yml)
 
 :warning: Personal DE environment setup.
+
 :warning: Still Work in Progress.
+
 :no_entry_sign:	It might not work on your box, proceed with caution.
  
 Playbook tested on follwoing host distributions
