@@ -6,7 +6,7 @@
       "segments": [
         {
           "background": "#a313a8",
-          "foreground": "#FFEB3B",
+          "foreground": "#fbff00",
           "properties": {
             "root_icon": "\u26a1",
             "template": " \uf0e7 "
@@ -16,9 +16,9 @@
         },
         {
           "background": "transparent",
-          "foreground": "#ffffff",
+          "foreground": "#fbff00",
           "properties": {
-            "template": " {{ if .WSL }}WSL at {{ end }}{{.Icon}} "
+            "template": " {{ if .WSL }}WSL {{ end }}{{.Icon}} "
           },
           "style": "plain",
           "type": "os"
@@ -39,7 +39,7 @@
           "type": "path"
         },
         {
-          "background": "#00C853",
+          "background": "#fbff00",
           "foreground": "#000000",
           "foreground_templates": [
             "{{ if or (.Working.Changed) (.Staging.Changed) }}#FFEB3B{{ end }}",
@@ -112,7 +112,7 @@
       "newline": true,
       "segments": [
         {
-          "foreground": "#ffffff",
+          "foreground": "#fbff00",
           "foreground_templates": [
             "{{ if gt .Code 0 }}#ff0000{{ end }}"
           ],
