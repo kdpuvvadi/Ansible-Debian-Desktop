@@ -1,7 +1,7 @@
 ---
 
 - name: install dependencies
-  apt:
+  ansible.builtin.apt:
     name:
       - ca-certificates
       - apt-transport-https
@@ -17,26 +17,26 @@
     state: present
 
 - name: check vs code installed or not
-  command: which code
+  ansible.builtin.command: which code
   failed_when: false
   changed_when: false
   check_mode: false
   register: code_present
 
 - name: install apt key for microsoft mirror
-  apt_key:
+  ansible.builtin.apt_key:
     url: '{{ ms_vscode_mirror }}/keys/microsoft.asc'
     state: present
   when: code_present.rc == 1
 
 - name: Check that vscode repo exists
-  stat:
+  ansible.builtin.stat:
     path: /etc/apt/sources.list.d/vscode.list
   register: stat_code_result
   when: code_present.rc == 1
 
 - name: add VS Code repo
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: 'deb [arch=amd64] {{ ms_vscode_mirror }}/repos/code stable main'
     filename: vscode
     state: present
@@ -45,7 +45,7 @@
     - not stat_code_result.stat.exists
 
 - name: install VS Code
-  apt:
+  ansible.builtin.apt:
     name:
       - code
     state: present

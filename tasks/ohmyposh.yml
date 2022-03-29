@@ -1,21 +1,21 @@
 ---
 
 - name: check oh-myposh installed or not
-  command: which oh-my-posh
+  ansible.builtin.command: which oh-my-posh
   failed_when: false
   changed_when: false
   check_mode: false
   register: posh_present
 
 - name: Download oh-my-posh
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ oh_my_posh_url }}"
     dest: /usr/local/bin/oh-my-posh
     mode: 0775
   when: posh_present.rc == 1
 
 - name: Create a font directory if it does not exist
-  file:
+  ansible.builtin.file:
     path: /home/{{ ansible_user }}/.fonts
     state: directory
     mode: 0755
@@ -23,19 +23,19 @@
     owner: "{{ ansible_user }}"
 
 - name: Download & unzip fonts
-  unarchive:
+  ansible.builtin.unarchive:
     src: "{{ meslofont_url }}"
     dest: /home/{{ ansible_user }}/.fonts/
     remote_src: 'yes'
 
 - name: refresh font cache
-  command: 'fc-cache -fv'
+  ansible.builtin.command: 'fc-cache -fv'
   failed_when: false
   changed_when: false
   check_mode: false
 
 - name: create config directory
-  file:
+  ansible.builtin.file:
     path: /home/{{ ansible_user }}/.poshthemes
     state: directory
     mode: u+rw
@@ -43,7 +43,7 @@
     owner: "{{ ansible_user }}"
 
 - name: Copy theme config json
-  copy:
+  ansible.builtin.copy:
     src: config/theme.json
     dest: /home/{{ ansible_user }}/.poshthemes/{{ ansible_user }}.omp.json
     owner: "{{ ansible_user }}"
@@ -51,7 +51,7 @@
     mode: '0760'
 
 - name: add posh config to bashrc
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /home/{{ ansible_user }}/.bashrc
     line: "{{ poshconfig }}"
     insertafter: EOF
@@ -59,7 +59,7 @@
     group: "{{ ansible_user }}"
 
 - name: resource bashrc
-  command: . /home/{{ ansible_user }}/.bashrc
+  ansible.builtin.command: . /home/{{ ansible_user }}/.bashrc
   failed_when: false
   changed_when: false
   check_mode: false
