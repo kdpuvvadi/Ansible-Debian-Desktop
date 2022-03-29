@@ -20,7 +20,6 @@ Tested on Control Node Ubuntu 20.04 LTS. Ansible 2.11.6.
 
 * Install pip `sudo apt install python3-pip -y`
 * install ansible with pip `pip install ansible`
-* Install requirements `ansible-galaxy collection install -r requirements.yml`
 
 ## Clone
 
