@@ -114,7 +114,6 @@
             "always_enabled": true
           },
           "style": "plain",
-          "template": " $ ",
           "type": "exit"
         }
       ],
