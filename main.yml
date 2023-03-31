@@ -1,6 +1,7 @@
 ---
 - hosts: all
   become: true
+  connection: local
 
   pre_tasks:
     - name: vars
